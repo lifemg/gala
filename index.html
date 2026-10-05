@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>格致中学游戏开发</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 背景层：你放置二次元背景图的位置 -->
+    <div class="bg-layer" id="bgLayer"></div>
+
+    <!-- 花瓣飘落 Canvas -->
+    <canvas id="petalCanvas" class="petal-canvas"></canvas>
+
+    <!-- 点击梅花特效容器 -->
+    <div class="click-effect-container" id="clickEffectContainer"></div>
+
+    <!-- 侧边栏（电脑端） -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-inner">
+            <div class="sidebar-brand">
+                <div class="brand-icon">格</div>
+                <h2>格致游戏<br>开发</h2>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#download" class="nav-item active" data-section="download">
+                    <span class="nav-icon">⬇</span>
+                    <span>游戏下载</span>
+                </a>
+                <a href="#music" class="nav-item" data-section="music">
+                    <span class="nav-icon">♪</span>
+                    <span>音乐</span>
+                </a>
+                <a href="#gallery" class="nav-item" data-section="gallery">
+                    <span class="nav-icon">◈</span>
+                    <span>推图</span>
+                </a>
+                <a href="#about" class="nav-item" data-section="about">
+                    <span class="nav-icon">◎</span>
+                    <span>关于</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-contacts">
+                <h4>联系方式</h4>
+                <div class="contact-item">
+                    <span class="contact-label">开发者 A</span>
+                    <a href="https://github.com/你的GitHub用户名" target="_blank" rel="noopener">GitHub</a>
+                    <span class="contact-value" data-contact="dev1-qq">QQ：待填写</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">开发者 B</span>
+                    <a href="https://github.com/你的GitHub用户名2" target="_blank" rel="noopener">GitHub</a>
+                    <span class="contact-value" data-contact="dev2-qq">QQ：待填写</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 移动端顶部栏 -->
+    <header class="mobile-header" id="mobileHeader">
+        <div class="mobile-brand">格致游戏开发</div>
+        <button class="hamburger" id="hamburger" aria-label="菜单">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <!-- 移动端侧滑菜单 -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <nav class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <span>导航</span>
+            <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+        </div>
+        <a href="#download" class="mobile-nav-item active" data-section="download">游戏下载</a>
+        <a href="#music" class="mobile-nav-item" data-section="music">音乐</a>
+        <a href="#gallery" class="mobile-nav-item" data-section="gallery">推图</a>
+        <a href="#about" class="mobile-nav-item" data-section="about">关于</a>
+        <div class="mobile-menu-contacts">
+            <h4>联系方式</h4>
+            <p>开发者 A — <a href="https://github.com/你的GitHub用户名" target="_blank">GitHub</a> · QQ：待填写</p>
+            <p>开发者 B — <a href="https://github.com/你的GitHub用户名2" target="_blank">GitHub</a> · QQ：待填写</p>
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="main-content" id="mainContent">
+
+        <!-- 游戏下载 -->
+        <section class="section" id="download">
+            <div class="section-header">
+                <h1 class="section-title">游戏下载</h1>
+                <p class="section-subtitle">我们制作的游戏作品，点击卡片可跳转蓝奏云下载或查看源码</p>
+            </div>
+
+            <!-- 游戏卡片容器（20个预留位） -->
+            <div class="game-grid" id="gameGrid">
+                <!-- JS 自动生成 20 个卡片 -->
+            </div>
+        </section>
+
+        <!-- 音乐 -->
+        <section class="section" id="music">
+            <div class="section-header">
+                <h1 class="section-title">音乐</h1>
+                <p class="section-subtitle">游戏原声带与配乐作品</p>
+            </div>
+            <div class="placeholder-grid">
+                <div class="placeholder-card">
+                    <div class="placeholder-icon">♪</div>
+                    <h3>音乐库</h3>
+                    <p>内容筹备中，敬请期待</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 推图 -->
+        <section class="section" id="gallery">
+            <div class="section-header">
+                <h1 class="section-title">推图</h1>
+                <p class="section-subtitle">游戏截图与美术作品展示</p>
+            </div>
+            <div class="placeholder-grid">
+                <div class="placeholder-card">
+                    <div class="placeholder-icon">◈</div>
+                    <h3>图片展示区</h3>
+                    <p>内容筹备中，敬请期待</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于 -->
+        <section class="section" id="about">
+            <div class="section-header">
+                <h1 class="section-title">关于我们</h1>
+                <p class="section-subtitle">格致中学游戏开发组 · 两个人的独立游戏团队</p>
+            </div>
+
+            <div class="about-grid">
+                <!-- 开发者 A -->
+                <div class="dev-card">
+                    <div class="dev-avatar" id="devAvatar1">A</div>
+                    <h3 class="dev-name" data-field="dev1-name">开发者 A</h3>
+                    <p class="dev-role" data-field="dev1-role">xxx / xxxxxxxxxx</p>
+                    <p class="dev-bio" data-field="dev1-bio">
+                        11111111111111111
+                    </p>
+                    <div class="dev-links">
+                        <a href="https://github.com/你的GitHub用户名" target="_blank" rel="noopener" class="dev-link">
+                            GitHub
+                        </a>
+                        <span class="dev-link qq-link" data-field="dev1-qq">QQ：待填写</span>
+                    </div>
+                </div>
+
+                <!-- 开发者 B -->
+                <div class="dev-card">
+                    <div class="dev-avatar" id="devAvatar2">B</div>
+                    <h3 class="dev-name" data-field="dev2-name">开发者 B</h3>
+                    <p class="dev-role" data-field="dev2-role">xxx / xxxxx</p>
+                    <p class="dev-bio" data-field="dev2-bio">
+                        222222222222222222
+                    </p>
+                    <div class="dev-links">
+                        <a href="https://github.com/你的GitHub用户名2" target="_blank" rel="noopener" class="dev-link">
+                            GitHub
+                        </a>
+                        <span class="dev-link qq-link" data-field="dev2-qq">QQ：待填写</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-description">
+                <h3>项目简介</h3>
+                <p>
+                    格致中学游戏开发组由两名在校学生组成，致力于用代码与创意构建有趣的游戏体验。
+                    我们的项目涵盖galagame、平台跳跃、解谜、文字冒险等多种类型，所有作品均开源或提供免费下载。
+                    欢迎交流与合作。
+                </p>
+            </div>
+        </section>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>© 2026 格致中学游戏开发 · 用心制作</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
