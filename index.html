@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0e13">
+<title>SILENTFORGE DEV STATION — Galgame &amp; RPG 开发站</title>
+<meta name="description" content="SILENTFORGE DEV STATION：我们制作 Galgame、RPG 等游戏并提供相关服务。游戏下载、原创音乐、插画推图与开发者信息。">
+<meta name="author" content="CxL, lifemg">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SILENTFORGE DEV STATION">
+<meta property="og:description" content="制作 Galgame、RPG 等游戏并提供相关服务。">
+<link rel="icon" href="assets/img/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/icon.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/pet.css">
+</head>
+<body>
+
+<!-- ============================ 背景层 ============================ -->
+<div class="bg-layer" id="bgLayer" aria-hidden="true">
+  <div class="bg-image" id="bgImage"></div>
+  <div class="bg-scrim"></div>
+  <div class="bg-grid"></div>
+  <div class="bg-scan"></div>
+</div>
+
+<!-- 技能特效画布（覆盖全屏，不拦截鼠标） -->
+<canvas id="fxCanvas" class="fx-canvas" aria-hidden="true"></canvas>
+
+<!-- ============================ 顶部导航 ============================ -->
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#home" data-nav>
+      <span class="brand-mark"><img src="assets/img/icon.png" alt="" width="24" height="24"></span>
+      <span class="brand-text">
+        <b id="brandName">SILENTFORGE</b>
+        <i id="brandTag">DEV STATION</i>
+      </span>
+    </a>
+
+    <nav class="nav" id="mainNav" aria-label="主导航">
+      <a href="#games" data-nav><span class="nav-idx">01</span>游戏下载</a>
+      <a href="#music" data-nav><span class="nav-idx">02</span>音乐</a>
+      <a href="#gallery" data-nav><span class="nav-idx">03</span>推图</a>
+      <a href="#about" data-nav><span class="nav-idx">04</span>关于</a>
+    </nav>
+
+    <div class="topbar-actions">
+      <button class="icon-btn" id="themeQuickBtn" type="button" aria-label="切换深浅色模式" title="切换深浅色模式">
+        <span class="theme-icon" aria-hidden="true"></span>
+      </button>
+      <button class="icon-btn" id="settingsBtn" type="button" aria-label="打开设置" title="设置" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/><path fill="currentColor" d="m19.4 13a7.6 7.6 0 0 0 0-2l1.9-1.4-1.9-3.3-2.3.9a7.5 7.5 0 0 0-1.7-1L15 3.6h-3.8l-.4 2.6a7.5 7.5 0 0 0-1.7 1l-2.3-.9L4.9 9.6 6.8 11a7.6 7.6 0 0 0 0 2l-1.9 1.4 1.9 3.3 2.3-.9c.5.4 1.1.8 1.7 1l.4 2.6H15l.4-2.6c.6-.2 1.2-.6 1.7-1l2.3.9 1.9-3.3ZM13.1 19h-.2l-.3-2.2a5.6 5.6 0 0 1-2.6-1.5l-1.9.8-.1-.2 1.6-1.2a5.7 5.7 0 0 1 0-3L8 10.3l.1-.2 1.9.8A5.6 5.6 0 0 1 12.6 9l.3-2.2h.2l.3 2.2c1 .2 1.9.7 2.6 1.5l1.9-.8.1.2-1.6 1.2a5.7 5.7 0 0 1 0 3l1.6 1.2-.1.2-1.9-.8a5.6 5.6 0 0 1-2.6 1.5Z"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="mobileNav">
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 移动端抽屉菜单 -->
+  <div class="mobile-nav" id="mobileNav" hidden>
+    <a href="#games" data-nav><span class="nav-idx">01</span>游戏下载</a>
+    <a href="#music" data-nav><span class="nav-idx">02</span>音乐</a>
+    <a href="#gallery" data-nav><span class="nav-idx">03</span>推图</a>
+    <a href="#about" data-nav><span class="nav-idx">04</span>关于</a>
+    <div class="mobile-nav-foot" id="mobileNavFoot"></div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ 首屏 ============================ -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <p class="hero-kicker" data-reveal>
+        <span class="dot"></span><span id="heroKicker">INDEPENDENT GAME STUDIO</span>
+      </p>
+      <h1 class="hero-title" data-reveal>
+        <span class="hero-title-main" id="heroTitle">SILENTFORGE</span>
+        <span class="hero-title-sub" id="heroSub">DEV STATION</span>
+      </h1>
+      <p class="hero-desc" data-reveal id="heroDesc">
+        制作 Galgame、RPG 等游戏并提供相关服务。
+      </p>
+      <div class="hero-actions" data-reveal>
+        <a class="btn btn-primary" href="#games" data-nav>
+          <span>浏览作品</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 12h12.2l-4.6-4.6L14 6l6 6-6 6-1.4-1.4 4.6-4.6H5z"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#about" data-nav>关于我们</a>
+      </div>
+
+      <dl class="hero-stats" data-reveal>
+        <div><dt>项目</dt><dd id="statProjects">02</dd></div>
+        <div><dt>曲目</dt><dd id="statTracks">00</dd></div>
+        <div><dt>插画</dt><dd id="statArt">00</dd></div>
+        <div><dt>成员</dt><dd id="statDevs">02</dd></div>
+      </dl>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <span>SCROLL</span><i></i>
+    </div>
+  </section>
+
+  <!-- ============================ 01 游戏下载 ============================ -->
+  <section class="section" id="games">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <p class="sec-idx">01 / GAMES</p>
+        <h2 class="sec-title">游戏下载</h2>
+        <p class="sec-desc">正在进行与计划中的项目，提供蓝奏云下载与 GitHub 源码。</p>
+      </header>
+
+      <div class="games" id="gamesList"></div>
+    </div>
+  </section>
+
+  <!-- ============================ 02 音乐 ============================ -->
+  <section class="section" id="music">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <p class="sec-idx">02 / MUSIC</p>
+        <h2 class="sec-title">音乐</h2>
+        <p class="sec-desc">原创 BGM 与主题曲试听。点封面即播，支持键盘左右切换。</p>
+      </header>
+
+      <div class="player" id="player" data-reveal>
+        <div class="player-now">
+          <div class="player-art" id="playerArt"><img alt="" id="playerArtImg"></div>
+          <div class="player-meta">
+            <p class="player-label">NOW PLAYING</p>
+            <h3 id="playerTitle">未选择曲目</h3>
+            <p id="playerArtist">—</p>
+            <div class="player-tags" id="playerTags"></div>
+          </div>
+        </div>
+
+        <div class="player-bar">
+          <button class="pl-btn" id="btnPrev" type="button" aria-label="上一首" title="上一首 (←)">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M7 6h2v12H7zM19 6v12l-9-6z"/></svg>
+          </button>
+          <button class="pl-btn pl-play" id="btnPlay" type="button" aria-label="播放" title="播放 / 暂停 (空格)">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" id="playIconPath" d="M8 5v14l11-7z"/></svg>
+          </button>
+          <button class="pl-btn" id="btnNext" type="button" aria-label="下一首" title="下一首 (→)">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M15 6h2v12h-2zM5 6l9 6-9 6z"/></svg>
+          </button>
+          <span class="pl-time" id="plTime">0:00 / 0:00</span>
+          <input class="pl-seek" id="plSeek" type="range" min="0" max="1000" value="0" step="1" aria-label="播放进度">
+          <div class="pl-vol">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M4 9h3l4-4v14l-4-4H4zm11.5 3a3.5 3.5 0 0 0-2-3.2v6.4a3.5 3.5 0 0 0 2-3.2Zm-2-7v2.1a5.5 5.5 0 0 1 0 9.8V19a7.5 7.5 0 0 0 0-14Z"/></svg>
+            <input id="plVol" type="range" min="0" max="100" value="80" aria-label="音量">
+          </div>
+          <label class="pl-loop" title="循环播放"><input type="checkbox" id="plLoop" checked><span>LOOP</span></label>
+        </div>
+        <audio id="audio" preload="metadata"></audio>
+        <p class="player-note" id="playerNote"></p>
+      </div>
+
+      <ul class="tracklist" id="trackList"></ul>
+    </div>
+  </section>
+
+  <!-- ============================ 03 推图 ============================ -->
+  <section class="section" id="gallery">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <p class="sec-idx">03 / GALLERY</p>
+        <h2 class="sec-title">推图</h2>
+        <p class="sec-desc">插画、设定与摸鱼图。点开看大图，支持左右方向键翻页。</p>
+      </header>
+
+      <div class="gal-filter" id="galFilter" data-reveal></div>
+      <div class="gallery" id="galleryGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============================ 04 关于 ============================ -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <p class="sec-idx">04 / ABOUT</p>
+        <h2 class="sec-title">关于</h2>
+        <p class="sec-desc">两个人的独立开发组。程序与美术，各自负责一半的世界。</p>
+      </header>
+
+      <div class="devs" id="devList"></div>
+
+      <h3 class="sub-head" data-reveal>我们能做什么</h3>
+      <div class="services" id="serviceList" data-reveal></div>
+
+      <div class="contact-card" id="contactCard" data-reveal></div>
+    </div>
+  </section>
+</main>
+
+<!-- ============================ 页脚 ============================ -->
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div class="footer-left">
+      <span class="footer-brand" id="footerBrand">SILENTFORGE DEV STATION</span>
+      <p id="footerNote">制作 Galgame、RPG 等游戏并提供相关服务。</p>
+    </div>
+    <div class="footer-right">
+      <nav class="footer-nav" aria-label="页脚导航">
+        <a href="#games" data-nav>游戏下载</a>
+        <a href="#music" data-nav>音乐</a>
+        <a href="#gallery" data-nav>推图</a>
+        <a href="#about" data-nav>关于</a>
+      </nav>
+      <p class="footer-copy">© <span id="year">2025</span> SILENTFORGE. Built with ☕ &amp; 剑意.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================ 桌宠 ============================ -->
+<div class="pet-zone" id="petZone" aria-hidden="true">
+  <!-- 左侧：韩立 -->
+  <div class="pet pet-left" id="petLeft" data-pet="hanli">
+    <div class="pet-bubble" id="petLeftBubble"></div>
+    <canvas class="pet-canvas" id="petLeftCanvas" width="160" height="200"></canvas>
+    <div class="pet-label" id="petLeftLabel">韩立</div>
+  </div>
+
+  <!-- 右侧：可切换的女主 -->
+  <div class="pet pet-right" id="petRight" data-pet="nangongwan">
+    <div class="pet-bubble" id="petRightBubble"></div>
+    <canvas class="pet-canvas" id="petRightCanvas" width="160" height="200"></canvas>
+    <div class="pet-switch" id="petSwitch" role="group" aria-label="切换右侧角色"></div>
+    <div class="pet-label" id="petRightLabel">南宫婉</div>
+  </div>
+</div>
+
+<!-- 桌宠控制条 + 技能栏 -->
+<div class="pet-dock" id="petDock">
+  <div class="pet-dock-row" id="skillBar"></div>
+  <div class="pet-dock-row pet-dock-ctrl">
+    <button class="dock-btn" id="dockToggle" type="button" title="关闭桌宠（快捷键 H）">
+      <span class="dock-ico" aria-hidden="true">✕</span><span class="dock-txt">关闭桌宠</span>
+    </button>
+    <button class="dock-btn ghost" id="dockHint" type="button" title="查看快捷键">
+      <span class="dock-ico" aria-hidden="true">⌘</span><span class="dock-txt">快捷键</span>
+    </button>
+  </div>
+  <div class="pet-dock-hint" id="dockHintText" hidden>
+    桌宠已关闭 &nbsp;·&nbsp; 按 <kbd>H</kbd> 重新打开 &nbsp;·&nbsp; 按 <kbd>1</kbd>~<kbd>5</kbd> 发动技能 &nbsp;·&nbsp; 按 <kbd>Q</kbd> 切换角色
+  </div>
+</div>
+
+<!-- 桌宠被关闭后的悬浮提示 -->
+<button class="pet-reopen" id="petReopen" type="button" hidden title="重新打开桌宠（H）">
+  <span aria-hidden="true">韩</span>
+  <em>按 H 唤出桌宠</em>
+</button>
+
+<!-- ============================ 设置抽屉 ============================ -->
+<div class="drawer-mask" id="drawerMask" hidden></div>
+<aside class="drawer" id="settingsDrawer" aria-label="站点设置" aria-hidden="true" hidden>
+  <header class="drawer-head">
+    <h2>设置</h2>
+    <button class="icon-btn" id="drawerClose" type="button" aria-label="关闭设置">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg>
+    </button>
+  </header>
+
+  <div class="drawer-body">
+    <section class="set-group">
+      <h3>外观</h3>
+      <div class="seg" id="themeSeg" role="radiogroup" aria-label="主题模式">
+        <button type="button" data-theme-val="dark" role="radio" aria-checked="true">暗黑</button>
+        <button type="button" data-theme-val="light" role="radio" aria-checked="false">浅色</button>
+        <button type="button" data-theme-val="auto" role="radio" aria-checked="false">跟随系统</button>
+      </div>
+      <label class="set-row">
+        <span>主题强调色</span>
+        <input type="color" id="setAccent" value="#e0a03a">
+      </label>
+      <label class="set-row"><span>自定义鼠标</span>
+        <input type="checkbox" id="setCursor" checked>
+      </label>
+    </section>
+
+    <section class="set-group">
+      <h3>桌宠</h3>
+      <label class="set-row"><span>显示桌宠</span>
+        <input type="checkbox" id="setPet" checked>
+      </label>
+      <label class="set-row"><span>技能特效</span>
+        <input type="checkbox" id="setFx" checked>
+      </label>
+      <label class="set-row"><span>技能音效</span>
+        <input type="checkbox" id="setSfx" checked>
+      </label>
+      <p class="set-tip">桌宠快捷键：<kbd>H</kbd> 开关 · <kbd>1</kbd>~<kbd>5</kbd> 技能 · <kbd>Q</kbd> 切换右侧角色</p>
+    </section>
+
+    <section class="set-group">
+      <h3>无障碍</h3>
+      <label class="set-row"><span>减弱动画</span>
+        <input type="checkbox" id="setReduce">
+      </label>
+      <p class="set-tip">低配设备或觉得晃眼时打开，会关闭大部分位移动画。</p>
+    </section>
+
+    <section class="set-group">
+      <button class="btn btn-ghost full" id="setReset" type="button">恢复默认设置</button>
+    </section>
+  </div>
+</aside>
+
+<!-- ============================ 图片灯箱 ============================ -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lb-close" id="lbClose" type="button" aria-label="关闭">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" type="button" aria-label="上一张">‹</button>
+  <button class="lb-nav lb-next" id="lbNext" type="button" aria-label="下一张">›</button>
+  <figure class="lb-figure">
+    <img id="lbImg" alt="">
+    <figcaption id="lbCap"></figcaption>
+  </figure>
+</div>
+
+<!-- 通用提示 -->
+<div class="toast" id="toast" hidden></div>
+
+<script src="js/data.js"></script>
+<script src="js/core.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/pet.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
